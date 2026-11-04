@@ -51,3 +51,28 @@ body.home-page .home-activities{background:#f4f7ff;padding:52px 0 72px;}
 body.home-page .home-activities .data-section h2{color:#0f2d74;}
 body.home-page .home-activities .data-section .section-intro{color:#4c638d;}
 body.home-page .home-activities .data-section{padding:40px 0;}
+
+
+/* Contraste e organização, mantendo o desenho original */
+.hero h1,.hero-copy p,.hero .eyebrow,.page-hero h1,.page-hero p,.page-hero .eyebrow{color:#fff}
+.impact-band h2,.impact-band p,.impact-band strong,.impact-band span,.impact-band .eyebrow{color:#fff}
+.footer-card h4,.footer-card .footer-brand p,.footer-card .footer-links a,.footer-card .footer-links p,.footer-card .foot-note{color:#fff}
+.page-content{background:#f6f9ff}
+.impact-band h2{font-size:clamp(1.9rem,4vw,2.65rem);margin:12px 0;line-height:1.15}
+.impact-band .impact-grid>div:first-child>a{margin-top:20px}
+.pix-key{font-size:1.1rem;color:#0f2d74;font-weight:800;display:inline-block;overflow-wrap:anywhere;margin:8px 0}
+.pix-feedback{margin:8px 0!important;min-height:1.3em}
+.help-note{color:#58709b;line-height:1.7;margin:24px 0 0}
+.copy-pix{border:0;font:inherit}
+.volunteer-panel{max-width:920px;padding:30px}
+.volunteer-panel h2{color:#0f2d74}
+.volunteer-panel p{color:#52688e;line-height:1.7}
+.volunteer-form{display:grid;gap:17px;margin-top:25px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.volunteer-form label{display:grid;gap:8px;color:#0f2d74;font-weight:750}
+.volunteer-form input:not([type=checkbox]),.volunteer-form select,.volunteer-form textarea{font:inherit;border:1px solid #c9d6ec;border-radius:11px;padding:12px;background:#fff;color:#19305a;max-width:100%}
+.volunteer-form label.consent{display:flex;align-items:flex-start;gap:10px;font-size:.92rem;line-height:1.6}
+.volunteer-form label.consent input{margin-top:5px}
+.volunteer-form button{justify-self:start}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #e6483c;outline-offset:3px}
+@media(max-width:760px){.form-grid{grid-template-columns:1fr}.volunteer-panel{padding:20px}.impact-band{padding:23px}.footer-links{grid-template-columns:1fr}}
