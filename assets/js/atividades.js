@@ -1,0 +1,1 @@
+const b=document.querySelector('.nav-toggle'); if(b){b.addEventListener('click',()=>{const nav=document.getElementById('main-navigation');const open=nav.classList.toggle('open');b.setAttribute('aria-expanded',String(open));b.textContent=open?'✕':'☰'})}
