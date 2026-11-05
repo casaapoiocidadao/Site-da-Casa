@@ -1,0 +1,82 @@
+/* PRÉVIA VISUAL OPCIONAL — azul, vermelho e branco
+   Somente ativa quando o endereço contém ?demo=1 e o script insere html.demo-redblue.
+   Nenhuma mudança no estilo do site principal. */
+html.demo-redblue{--blue:#173B87;--blue2:#214C9E;--red:#E53D3D;--red2:#FB5955;--muted:#526887;--shadow:0 18px 44px rgba(21,48,105,.13)}
+html.demo-redblue body{background:#fff!important;color:#19365E!important}
+html.demo-redblue .header,
+html.demo-redblue .home-page .header{background:#fff!important;border-bottom:4px solid #E53D3D!important;box-shadow:0 10px 30px rgba(12,41,95,.1)!important;backdrop-filter:none!important}
+html.demo-redblue .header .brand-title,html.demo-redblue .brand-title{color:#173B87!important}
+html.demo-redblue .header .brand-sub,html.demo-redblue .brand-sub{color:#4B628A!important}
+html.demo-redblue .header .nav a:not(.btn),html.demo-redblue .nav a:not(.btn){color:#173B87!important}
+html.demo-redblue .header .nav a:not(.btn):hover,html.demo-redblue .nav a:not(.btn):hover{color:#E53D3D!important}
+html.demo-redblue .header .brand img{background:transparent!important}
+html.demo-redblue .btn-primary,html.demo-redblue .btn.btn-primary{background:#E53D3D!important;color:#fff!important;box-shadow:0 10px 25px rgba(229,61,61,.25)!important}
+html.demo-redblue .btn-primary:hover{background:#C92630!important}
+html.demo-redblue .btn-secondary{background:white!important;color:#173B87!important;border:2px solid #E53D3D!important}
+html.demo-redblue .hero{background:linear-gradient(125deg,#13316F 3%,#1C4697 70%,#244DA0 100%)!important;color:#fff!important;border-bottom:9px solid #E53D3D}
+html.demo-redblue .hero-copy h1{color:white!important}
+html.demo-redblue .hero-copy h1::after{content:'';display:block;width:100px;height:7px;border-radius:999px;background:#F4514C;margin-top:22px}
+html.demo-redblue .hero-copy p{color:#F2F6FF!important}
+html.demo-redblue .hero-visual{border:4px solid #fff!important;box-shadow:15px 15px 0 rgba(232,57,59,.9)!important}
+html.demo-redblue .hero-metrics .metric{border-bottom:4px solid #F04A48!important}
+html.demo-redblue .hero-metrics .metric strong{color:#fff!important}
+html.demo-redblue .page-hero{background:linear-gradient(115deg,#15377E,#244FA5)!important;border-bottom:8px solid #E53D3D!important;color:white!important}
+html.demo-redblue .page-hero h1{color:white!important}
+html.demo-redblue .page-hero .eyebrow,html.demo-redblue .hero .eyebrow{background:#E53D3D!important;color:#fff!important}
+html.demo-redblue .light-eyebrow,html.demo-redblue .project-pill{background:#FFE6E5!important;color:#B8262A!important}
+html.demo-redblue .section{background:#fff}
+html.demo-redblue .section:nth-of-type(even){background:#F4F7FC}
+html.demo-redblue .about{background:transparent!important}
+html.demo-redblue .about-copy h2,html.demo-redblue .section-head h2,
+html.demo-redblue .teaser-copy h2,html.demo-redblue .cta h2{color:#173B87!important}
+html.demo-redblue .section-head h2::before,html.demo-redblue .about-copy h2::before,
+html.demo-redblue .teaser-copy h2::before{content:'';display:inline-block;width:7px;height:.8em;background:#E53D3D;border-radius:5px;margin-right:12px}
+html.demo-redblue .panel,html.demo-redblue .project-card,html.demo-redblue .area-card{border:1px solid #DBE3F1!important;border-top:5px solid #E53D3D!important;box-shadow:0 14px 36px rgba(11,42,97,.08)!important}
+html.demo-redblue .area-icon{background:#FFE7E4!important}
+html.demo-redblue .project-body h3,html.demo-redblue .area-card h3{color:#173B87!important}
+html.demo-redblue .impact-band{background:linear-gradient(110deg,#E53D3D,#BB2635)!important;color:white!important;border-radius:26px!important}
+html.demo-redblue .impact-stat{background:#fff!important;border:0!important;color:#16377A!important}
+html.demo-redblue .impact-stat strong{color:#D83238!important}
+html.demo-redblue .impact-stat span{color:#40547A!important}
+html.demo-redblue .metric strong{color:white}
+html.demo-redblue .teaser-wrap .mosaic figure{border:4px solid white;box-shadow:0 9px 20px rgba(18,54,117,.12)}
+html.demo-redblue .mosaic figcaption{background:#E53D3D!important;color:white!important}
+html.demo-redblue .data-section{background:#fff!important;border-bottom:1px solid #DBE5F2!important}
+html.demo-redblue .data-section:nth-of-type(even){background:#F3F7FC!important}
+html.demo-redblue .data-section#esporte,html.demo-redblue .data-section#alimentacao{background:#173B87!important;color:#fff!important;border-bottom:7px solid #E53D3D!important}
+html.demo-redblue .data-section#esporte h2,html.demo-redblue .data-section#alimentacao h2,
+html.demo-redblue .data-section#esporte .section-intro,html.demo-redblue .data-section#alimentacao .section-intro{color:#fff!important}
+html.demo-redblue .data-section#saude h2,html.demo-redblue .data-section#educacao h2,
+html.demo-redblue .data-section#eventos h2{color:#173B87!important}
+html.demo-redblue .data-section#saude .section-intro,html.demo-redblue .data-section#educacao .section-intro,
+html.demo-redblue .data-section#eventos .section-intro{color:#526887!important}
+html.demo-redblue .data-section h2{letter-spacing:-.025em!important}
+html.demo-redblue .data-card{background:#fff!important;border:1px solid #DCE6F4!important;border-top:6px solid #E53D3D!important;border-radius:21px!important;box-shadow:0 12px 26px rgba(5,31,82,.08)!important}
+html.demo-redblue .data-card h3{color:#173B87!important}
+html.demo-redblue .data-card .tag{background:#FFE7E7!important;color:#B52732!important}
+html.demo-redblue .data-card strong{color:#C92834!important}
+html.demo-redblue .data-card p{color:#425A7C!important}
+html.demo-redblue .data-card a{color:#D83238!important;text-decoration:underline}
+html.demo-redblue .action-row{border-left:6px solid #E53D3D!important;box-shadow:0 7px 25px rgba(12,41,95,.05)!important}
+html.demo-redblue .action-row strong{color:#D42A32!important}
+html.demo-redblue .chip,html.demo-redblue .subnav a{background:#FFE7E7!important;color:#B52732!important}
+html.demo-redblue .subnav a:hover{background:#E53D3D!important;color:white!important}
+html.demo-redblue .short-impact{background:#FFEDEE!important}
+html.demo-redblue .short-impact h2{color:#173B87!important}
+html.demo-redblue .gallery-item{border:1px solid #DBE3F0!important;border-bottom:5px solid #E53D3D!important;border-radius:19px!important;overflow:hidden;box-shadow:0 12px 26px rgba(12,41,95,.09)}
+html.demo-redblue .gallery-item img{width:100%;aspect-ratio:4/3;object-fit:cover}
+html.demo-redblue .gallery-caption strong{color:#173B87!important}
+html.demo-redblue .footer-card{background:#122F6F!important;border-top:8px solid #E53D3D!important}
+html.demo-redblue .footer-card a:hover{color:#FF8A84!important}
+html.demo-redblue .site-menu-toggle,html.demo-redblue .nav-toggle{background:#EDF3FF!important;color:#173B87!important;border:1px solid #D9E3F4!important}
+html.demo-redblue #demo-layout-switch{position:fixed;bottom:18px;right:18px;z-index:99990;display:flex;align-items:center;gap:12px;background:#fff;color:#173B87;border:2px solid #E53D3D;border-radius:14px;padding:10px 12px;box-shadow:0 12px 36px rgba(10,30,70,.25);font:700 13px Inter,system-ui,sans-serif;max-width:min(330px,calc(100vw - 30px))}
+html.demo-redblue #demo-layout-switch a{color:#fff;background:#E53D3D;padding:10px 12px;border-radius:9px;text-decoration:none;white-space:nowrap}
+@media(max-width:1060px){
+ html.demo-redblue .header .nav{background:#fff!important;border:1px solid #DBE4F3!important}
+ html.demo-redblue .header .nav a:not(.btn){color:#173B87!important}
+}
+@media(max-width:740px){
+ html.demo-redblue .data-cards{grid-template-columns:1fr!important}
+ html.demo-redblue #demo-layout-switch{left:12px;right:12px;bottom:12px;max-width:none;justify-content:space-between}
+ html.demo-redblue .hero-visual{box-shadow:5px 7px 0 #E53D3D!important}
+}
