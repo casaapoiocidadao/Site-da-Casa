@@ -25,6 +25,7 @@ if(albumGrid && Array.isArray(window.CASA_ACERVO)){
     figure.className='gallery-item';
     figure.dataset.category=categoriaDaAtividade(titulo);
     figure.dataset.title=titulo;
+    figure.dataset.activity=titulo;
     figure.dataset.album=album;
     const img=document.createElement('img');
     img.alt=titulo+' — '+album;
@@ -45,43 +46,76 @@ if(albumGrid && Array.isArray(window.CASA_ACERVO)){
   window.CASA_ACERVO=null;
 }
 
-/* Filtro por ano: inclui fotos de todos os álbuns no mesmo menu. */
+/* Filtros encadeados: ano > nome original da pasta/atividade. */
 const items=[...document.querySelectorAll('.gallery-item')];
 const filtersContainer=document.querySelector('.filters') || document.querySelector('.filter-btn')?.parentElement;
 function anoDaFoto(item){
   const direct=String(item.dataset.year || item.dataset.ano || '').match(/\b(?:19|20)\d{2}\b/);
   if(direct) return direct[0];
-  const campos=[
-    item.dataset.album,
-    item.dataset.title,
-    item.querySelector('.gallery-caption')?.textContent,
-    item.querySelector('img')?.getAttribute('src')?.slice(0,240)
-  ];
+  const campos=[item.dataset.album,item.dataset.title,item.querySelector('.gallery-caption')?.textContent,item.querySelector('img')?.getAttribute('src')?.slice(0,240)];
   for(const campo of campos){
     const m=String(campo||'').match(/(?:^|[^0-9])((?:19|20)\d{2})(?=[^0-9]|$)/);
     if(m) return m[1];
   }
   return 'sem-data';
 }
-items.forEach(item=>{item.dataset.year=anoDaFoto(item);});
+items.forEach(item=>{
+  item.dataset.year=anoDaFoto(item);
+  // O campo atividade do acervo contém o nome da pasta enviada no ZIP.
+  item.dataset.activity=item.dataset.activity || item.dataset.title || 'Outras fotos';
+});
 if(filtersContainer){
+  const subfilters=document.createElement('div');
+  subfilters.className='filters gallery-subfilters';
+  subfilters.setAttribute('aria-label','Filtrar por atividade');
+  filtersContainer.insertAdjacentElement('afterend',subfilters);
   const anos=[...new Set(items.map(item=>item.dataset.year).filter(ano=>ano!=='sem-data'))].sort((a,b)=>Number(b)-Number(a));
   const opcoes=[['all','Todos'],...anos.map(ano=>[ano,ano])];
-  if(items.some(item=>item.dataset.year==='sem-data')) opcoes.push(['sem-data','Sem ano informado']);
-  filtersContainer.replaceChildren();
-  opcoes.forEach(([valor,rotulo],index)=>{
+  if(items.some(item=>item.dataset.year==='sem-data'))opcoes.push(['sem-data','Sem ano informado']);
+  let anoSelecionado='all';
+  let atividadeSelecionada='all';
+  function criaBotao(valor,rotulo,ativo,acao){
     const btn=document.createElement('button');
-    btn.type='button';btn.className='filter-btn'+(index===0?' active':'');
+    btn.type='button';btn.className='filter-btn'+(ativo?' active':'');
     btn.dataset.filter=valor;btn.textContent=rotulo;
-    btn.setAttribute('aria-pressed',String(index===0));
-    btn.addEventListener('click',()=>{
-      filtersContainer.querySelectorAll('.filter-btn').forEach(outro=>{
-        outro.classList.remove('active');outro.setAttribute('aria-pressed','false');
-      });
-      btn.classList.add('active');btn.setAttribute('aria-pressed','true');
-      items.forEach(item=>{item.style.display=valor==='all'||item.dataset.year===valor?'block':'none';});
+    btn.setAttribute('aria-pressed',String(ativo));
+    btn.addEventListener('click',()=>acao(valor));
+    return btn;
+  }
+  function filtrar(){
+    items.forEach(item=>{
+      const anoOk=anoSelecionado==='all'||item.dataset.year===anoSelecionado;
+      const atividadeOk=atividadeSelecionada==='all'||item.dataset.activity===atividadeSelecionada;
+      item.style.display=anoOk&&atividadeOk?'block':'none';
     });
-    filtersContainer.append(btn);
-  });
+  }
+  function montarSubcategorias(){
+    const correspondentes=items.filter(item=>anoSelecionado==='all'||item.dataset.year===anoSelecionado);
+    const atividades=[...new Set(correspondentes.map(item=>item.dataset.activity).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+    subfilters.replaceChildren();
+    if(!atividades.length){subfilters.hidden=true;return;}
+    subfilters.hidden=false;
+    subfilters.append(criaBotao('all','Todas as atividades',atividadeSelecionada==='all',selecionarAtividade));
+    atividades.forEach(nome=>subfilters.append(criaBotao(nome,nome,atividadeSelecionada===nome,selecionarAtividade)));
+  }
+  function selecionarAtividade(valor){
+    atividadeSelecionada=valor;
+    montarSubcategorias();
+    filtrar();
+  }
+  function selecionarAno(valor){
+    anoSelecionado=valor;
+    atividadeSelecionada='all';
+    montarAnos();
+    montarSubcategorias();
+    filtrar();
+  }
+  function montarAnos(){
+    filtersContainer.replaceChildren();
+    opcoes.forEach(([valor,rotulo])=>filtersContainer.append(criaBotao(valor,rotulo,valor===anoSelecionado,selecionarAno)));
+  }
+  montarAnos();
+  montarSubcategorias();
+  filtrar();
 }
 const lightbox=document.getElementById('lightbox');if(lightbox){const lbImg=document.getElementById('lightboxImage'); const lbCap=document.getElementById('lightboxCaption'); items.forEach(item=>item.addEventListener('click',()=>{const img=item.querySelector('img'); lbImg.src=img.src; lbCap.textContent=item.dataset.title+' — '+item.dataset.album; lightbox.classList.add('open');})); document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.classList.remove('open')); lightbox.addEventListener('click',e=>{if(e.target===lightbox) lightbox.classList.remove('open');});}
