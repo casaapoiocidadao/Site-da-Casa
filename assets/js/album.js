@@ -45,5 +45,43 @@ if(albumGrid && Array.isArray(window.CASA_ACERVO)){
   window.CASA_ACERVO=null;
 }
 
-const items=[...document.querySelectorAll('.gallery-item')];const filters=[...document.querySelectorAll('.filter-btn')];filters.forEach(btn=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');const f=btn.dataset.filter;items.forEach(item=>{item.style.display=(f==='all'||item.dataset.category===f)?'block':'none';});}));
+/* Filtro por ano: inclui fotos de todos os álbuns no mesmo menu. */
+const items=[...document.querySelectorAll('.gallery-item')];
+const filtersContainer=document.querySelector('.filters') || document.querySelector('.filter-btn')?.parentElement;
+function anoDaFoto(item){
+  const direct=String(item.dataset.year || item.dataset.ano || '').match(/\b(?:19|20)\d{2}\b/);
+  if(direct) return direct[0];
+  const campos=[
+    item.dataset.album,
+    item.dataset.title,
+    item.querySelector('.gallery-caption')?.textContent,
+    item.querySelector('img')?.getAttribute('src')?.slice(0,240)
+  ];
+  for(const campo of campos){
+    const m=String(campo||'').match(/(?:^|[^0-9])((?:19|20)\d{2})(?=[^0-9]|$)/);
+    if(m) return m[1];
+  }
+  return 'sem-data';
+}
+items.forEach(item=>{item.dataset.year=anoDaFoto(item);});
+if(filtersContainer){
+  const anos=[...new Set(items.map(item=>item.dataset.year).filter(ano=>ano!=='sem-data'))].sort((a,b)=>Number(b)-Number(a));
+  const opcoes=[['all','Todos'],...anos.map(ano=>[ano,ano])];
+  if(items.some(item=>item.dataset.year==='sem-data')) opcoes.push(['sem-data','Sem ano informado']);
+  filtersContainer.replaceChildren();
+  opcoes.forEach(([valor,rotulo],index)=>{
+    const btn=document.createElement('button');
+    btn.type='button';btn.className='filter-btn'+(index===0?' active':'');
+    btn.dataset.filter=valor;btn.textContent=rotulo;
+    btn.setAttribute('aria-pressed',String(index===0));
+    btn.addEventListener('click',()=>{
+      filtersContainer.querySelectorAll('.filter-btn').forEach(outro=>{
+        outro.classList.remove('active');outro.setAttribute('aria-pressed','false');
+      });
+      btn.classList.add('active');btn.setAttribute('aria-pressed','true');
+      items.forEach(item=>{item.style.display=valor==='all'||item.dataset.year===valor?'block':'none';});
+    });
+    filtersContainer.append(btn);
+  });
+}
 const lightbox=document.getElementById('lightbox');if(lightbox){const lbImg=document.getElementById('lightboxImage'); const lbCap=document.getElementById('lightboxCaption'); items.forEach(item=>item.addEventListener('click',()=>{const img=item.querySelector('img'); lbImg.src=img.src; lbCap.textContent=item.dataset.title+' — '+item.dataset.album; lightbox.classList.add('open');})); document.getElementById('lightboxClose').addEventListener('click',()=>lightbox.classList.remove('open')); lightbox.addEventListener('click',e=>{if(e.target===lightbox) lightbox.classList.remove('open');});}
