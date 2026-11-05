@@ -80,3 +80,25 @@ html.demo-redblue #demo-layout-switch a{color:#fff;background:#E53D3D;padding:10
  html.demo-redblue #demo-layout-switch{left:12px;right:12px;bottom:12px;max-width:none;justify-content:space-between}
  html.demo-redblue .hero-visual{box-shadow:5px 7px 0 #E53D3D!important}
 }
+
+
+/* Ajustes finais da DEMO 1: preservam páginas e fotografias reais do repositório. */
+html.demo-redblue .activities-page .data-section .container > div[style*="justify-content:center"]{
+  display:flex!important;justify-content:center!important;align-items:center!important;width:100%;
+}
+html.demo-redblue .activities-page .data-section .container > div[style*="justify-content:center"] > .btn{
+  display:inline-flex;align-items:center;justify-content:center;text-align:center;
+}
+html.demo-redblue .footer{position:relative;display:block;clear:both;width:100%;}
+html.demo-redblue .footer .footer-card{background:#122F6F!important;color:#fff!important;border-top:8px solid #E53D3D!important;}
+html.demo-redblue .footer .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
+html.demo-redblue .footer .footer-links a,
+html.demo-redblue .footer .footer-links h4,
+html.demo-redblue .footer .footer-brand p,
+html.demo-redblue .footer .foot-note{color:#fff!important;}
+html.demo-redblue .gallery-grid .gallery-item img{width:100%;height:190px;aspect-ratio:4/3;object-fit:cover;}
+@media(max-width:760px){
+ html.demo-redblue .footer .footer-links{grid-template-columns:1fr;}
+ html.demo-redblue .gallery-grid .gallery-item img{height:160px;}
+}
+@media(max-width:420px){html.demo-redblue .gallery-grid .gallery-item img{height:135px;}}
