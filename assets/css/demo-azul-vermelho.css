@@ -1,6 +1,6 @@
-/* PRÉVIA VISUAL OPCIONAL — azul, vermelho e branco
-   Somente ativa quando o endereço contém ?demo=1 e o script insere html.demo-redblue.
-   Nenhuma mudança no estilo do site principal. */
+/* TEMA OFICIAL — azul, vermelho e branco.
+   O menu compartilhado ativa html.demo-redblue em todas as páginas institucionais,
+   sem necessidade do parâmetro ?demo=1. */
 html.demo-redblue{--blue:#173B87;--blue2:#214C9E;--red:#E53D3D;--red2:#FB5955;--muted:#526887;--shadow:0 18px 44px rgba(21,48,105,.13)}
 html.demo-redblue body{background:#fff!important;color:#19365E!important}
 html.demo-redblue .header,
