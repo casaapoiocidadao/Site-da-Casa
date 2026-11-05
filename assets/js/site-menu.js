@@ -12,37 +12,18 @@
 })();
 
 
-/* Modo de demonstração: ativado exclusivamente por ?demo=1.
-   Mantém menus, fotos, álbuns e interações existentes; nunca altera a aparência padrão. */
+
+/* Tema azul, vermelho e branco agora é o padrão OFICIAL de todo o site.
+   A navegação continua usando as páginas, galerias e integrações reais do projeto.
+   Não exige parâmetros ?demo=1 nem modifica links internos. */
 (()=>{
   'use strict';
-  const url=new URL(window.location.href);
-  if(url.searchParams.get('demo')!=='1')return;
   document.documentElement.classList.add('demo-redblue');
-  const sheet=document.createElement('link');
-  sheet.rel='stylesheet';
-  // O arquivo JS está na pasta assets/js, mas o URL base do documento é a raiz do site.
-  sheet.href=new URL('assets/css/demo-azul-vermelho.css',document.baseURI).href;
-  document.head.appendChild(sheet);
-  const makePreviewLink=(anchor)=>{
-    if(!anchor || !anchor.getAttribute('href'))return;
-    const original=anchor.getAttribute('href');
-    if(original.startsWith('#') || /^(mailto:|tel:|javascript:|data:)/i.test(original))return;
-    try {
-      const target=new URL(original,document.baseURI);
-      if(target.origin===location.origin && /\.html$/i.test(target.pathname)){
-        target.searchParams.set('demo','1');
-        anchor.href=target.href;
-      }
-    }catch(_){}
-  };
-  document.querySelectorAll('a[href]').forEach(makePreviewLink);
-  // Protege links montados dinamicamente por filtros dos álbuns.
-  document.addEventListener('click',(event)=>{
-    const anchor=event.target.closest?.('a[href]');
-    if(anchor)makePreviewLink(anchor);
-  },true);
-  // A prévia usa exatamente as páginas, os menus e o acervo do site original.
-  // Sem painel flutuante: ele encobria conteúdo e confundia a navegação.
-
+  if(!document.querySelector('link[data-tema-oficial]')){
+    const sheet=document.createElement('link');
+    sheet.rel='stylesheet';
+    sheet.dataset.temaOficial='true';
+    sheet.href=new URL('assets/css/demo-azul-vermelho.css',document.baseURI).href;
+    document.head.appendChild(sheet);
+  }
 })();
