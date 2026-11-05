@@ -42,16 +42,7 @@
     const anchor=event.target.closest?.('a[href]');
     if(anchor)makePreviewLink(anchor);
   },true);
-  const bar=document.createElement('aside');
-  bar.id='demo-layout-switch';
-  bar.setAttribute('aria-label','Prévia do novo layout');
-  const caption=document.createElement('span');
-  caption.textContent='PRÉVIA • Azul + vermelho + branco';
-  const back=document.createElement('a');
-  const normal=new URL(location.href);
-  normal.searchParams.delete('demo');
-  back.href=normal.href;
-  back.textContent='Ver original';
-  bar.append(caption,back);
-  document.body.appendChild(bar);
+  // A prévia usa exatamente as páginas, os menus e o acervo do site original.
+  // Sem painel flutuante: ele encobria conteúdo e confundia a navegação.
+
 })();
