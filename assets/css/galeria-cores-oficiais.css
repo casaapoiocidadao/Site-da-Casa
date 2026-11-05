@@ -1,0 +1,18 @@
+/* Galerias históricas 2020–2023 — bordas e cores institucionais oficiais.
+   Mantém fotos, dimensões, filtros e ampliação existentes. */
+:root{--blue:#173B87;--blue2:#214C9E;--red:#E53D3D;--muted:#526887}
+.site-header{border-bottom:4px solid #E53D3D!important}
+.hero{border-bottom:8px solid #E53D3D}
+.tools{border:1px solid #DCE6F4!important;border-top:5px solid #E53D3D!important}
+.photo-grid .photo-button{
+  border:1px solid #DBE3F0!important;
+  border-bottom:5px solid #E53D3D!important;
+  border-radius:16px!important;
+  box-shadow:0 12px 26px rgba(12,41,95,.09)!important;
+  box-sizing:border-box;
+}
+.activity-head{border-bottom:3px solid #E53D3D!important}
+.year-controls button.active,.year-controls a.active{background:#173B87!important;border-color:#173B87!important;color:#fff!important}
+.year-section h2,.activity h3{color:#173B87!important}
+.footer{border-top:7px solid #E53D3D;background:#122F6F!important}
+@media (prefers-reduced-motion:reduce){.photo-button img{transition:none}}
