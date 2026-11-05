@@ -79,6 +79,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 
 body.activities-page #esporte{background:#143684}
 body.activities-page #esporte h2,body.activities-page #esporte .section-intro{color:#fff}
+body.activities-page #esporte .detail-table th{color:#fff;background:rgba(255,255,255,.15)}
+body.activities-page #esporte .detail-table td{color:#fff;border-color:rgba(255,255,255,.2)}
+body.activities-page #esporte .detail-table tr:nth-child(even) td{background:rgba(255,255,255,.08)}
+body.activities-page #esporte .table-wrap{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);box-shadow:none}
+body.activities-page #esporte .btn-primary{background:linear-gradient(90deg,var(--red),var(--red2))}
 body.activities-page .data-section:not(#esporte){background:#f6f9ff}
 body.activities-page .data-section:not(#esporte) h2{color:#0f2d74}
 body.activities-page .data-section:not(#esporte) .section-intro{color:#52688e}
