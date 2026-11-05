@@ -93,7 +93,7 @@ if(filtersContainer){
     const correspondentes=items.filter(item=>anoSelecionado==='all'||item.dataset.year===anoSelecionado);
     const atividades=[...new Set(correspondentes.map(item=>item.dataset.activity).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
     subfilters.replaceChildren();
-    if(!atividades.length){subfilters.hidden=true;return;}
+    if(anoSelecionado==='all'||!atividades.length){subfilters.hidden=true;return;}
     subfilters.hidden=false;
     subfilters.append(criaBotao('all','Todas as atividades',atividadeSelecionada==='all',selecionarAtividade));
     atividades.forEach(nome=>subfilters.append(criaBotao(nome,nome,atividadeSelecionada===nome,selecionarAtividade)));
