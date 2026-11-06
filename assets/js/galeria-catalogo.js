@@ -4,6 +4,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
   'use strict';
   const section = document.getElementById('acervo-historico');
   if (!section) return;
+  section.querySelectorAll('.hist-actions').forEach(actions=>actions.remove());
   const cache = new Map();
   let current = [], position = 0, previousFocus = null;
   const box = document.getElementById('lightbox');
@@ -16,10 +17,11 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
     #acervo-historico .hist-inline-gallery{width:100%;margin-top:14px;grid-column:1/-1}
     #acervo-historico .hist-activity-content .hist-inline-gallery{margin-top:10px}
     #acervo-historico .hist-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:12px;padding:12px 0}
-    #acervo-historico .hist-photo-button{border:1px solid #dce6f7;border-radius:13px;background:white;padding:5px;cursor:zoom-in;overflow:hidden;transition:transform .15s,border-color .15s}
+    #acervo-historico .hist-photo-button{border:2px solid #2855a1;border-bottom:3px solid #ef373a;border-radius:13px;background:white;padding:5px;cursor:zoom-in;overflow:hidden;transition:transform .15s,border-color .15s}
     #acervo-historico .hist-photo-button:hover,#acervo-historico .hist-photo-button:focus-visible{transform:translateY(-2px);border-color:#ef373a}
     #acervo-historico .hist-photo-button img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;display:block}
     #acervo-historico .hist-photo-button span{display:block;padding:5px;font-size:.78rem;color:#0f2d74;text-align:center}
+    #acervo-historico .hist-thumb{box-sizing:border-box;border:2px solid #2855a1;border-bottom:3px solid #ef373a}
     #acervo-historico .hist-inline-title{font-weight:800;color:#0f2d74;margin:8px 0 2px;font-size:.95rem}
     #acervo-historico .hist-inline-status{padding:12px 0;color:#52688e}
     #acervo-historico .hist-card[aria-expanded="true"]{border-color:#ef373a}
@@ -83,18 +85,14 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
     const selected=page.searchParams.get('atividade');
     return selected ? all.filter(p=>p.atividade===selected) : all;
   }
-  section.addEventListener('click', async e=>{
-    const a=e.target.closest('a[href]');
-    if(!a || !section.contains(a))return;
+  async function showAlbum(a, toggle = true) {
     const url=new URL(a.getAttribute('href'),location.href);
-    if(!/^galeria-(?:memoria|20\d\d)\.html$/.test(url.pathname.split('/').pop()))return;
-    e.preventDefault();
     const activity=a.closest('.hist-activity');
     const parent=activity?.querySelector('.hist-activity-content') || a.closest('.hist-cards');
     if(!parent)return;
     let target=parent.querySelector(':scope > .hist-inline-gallery');
     if(target){
-      const wasVisible=!target.hidden;
+      const wasVisible=toggle && !target.hidden;
       target.hidden=wasVisible;a.setAttribute('aria-expanded',String(!wasVisible));
       return;
     }
@@ -121,6 +119,22 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
         button.append(img,label);button.addEventListener('click',()=>openLightbox(photos,i));grid.append(button);
       });
       target.append(grid);
-    }catch(err){status.textContent='Não foi possível abrir as fotografias. Clique novamente para tentar.';target.remove();a.setAttribute('aria-expanded','false');}
+    }catch(err){console.error('Falha ao abrir álbum',err);status.textContent='Não foi possível abrir as fotografias. Clique novamente para tentar.';target.remove();a.setAttribute('aria-expanded','false');}
+  }
+  // Cada atividade abre as fotografias com o mesmo grid e visualizador dos Destaques.
+  section.querySelectorAll('.hist-activity').forEach(activity=>{
+    activity.addEventListener('toggle',()=>{
+      if(!activity.open)return;
+      const link=activity.querySelector('a.hist-card');
+      if(link)showAlbum(link,false);
+    });
+  });
+  section.addEventListener('click',e=>{
+    const a=e.target.closest('a[href]');
+    if(!a || !section.contains(a))return;
+    const url=new URL(a.getAttribute('href'),location.href);
+    if(!/^galeria-(?:memoria|20\d\d)\.html$/.test(url.pathname.split('/').pop()))return;
+    e.preventDefault();
+    showAlbum(a,!a.closest('.hist-activity'));
   });
 })();
