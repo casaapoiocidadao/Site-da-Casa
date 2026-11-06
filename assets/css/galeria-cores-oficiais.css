@@ -14,5 +14,4 @@
 .activity-head{border-bottom:3px solid #E53D3D!important}
 .year-controls button.active,.year-controls a.active{background:#173B87!important;border-color:#173B87!important;color:#fff!important}
 .year-section h2,.activity h3{color:#173B87!important}
-.footer{border-top:7px solid #E53D3D;background:#122F6F!important}
 @media (prefers-reduced-motion:reduce){.photo-button img{transition:none}}
