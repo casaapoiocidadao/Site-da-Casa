@@ -1,0 +1,26 @@
+/* Padronização do cabeçalho/rodapé em todas as páginas da Casa de Apoio. */
+.site-header{position:sticky;top:0;z-index:50;background:#fff!important;border-bottom:4px solid #e53d3d!important;box-shadow:0 5px 18px rgba(16,38,77,.08)!important;color:#173b87}
+.site-header .site-header-inner{width:min(1160px,calc(100% - 32px));margin:auto;min-height:86px;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:10px 0}
+.site-header .site-brand{display:flex;align-items:center;gap:13px;color:#173b87!important;text-decoration:none}
+.site-header .site-brand img{width:60px;height:60px;object-fit:contain;flex-shrink:0;background:transparent;padding:0;border:0;border-radius:0}
+.site-header .brand-title{color:#173b87!important;font-size:1.03rem;font-weight:800}
+.site-header .brand-sub{color:#526887!important;font-size:.76rem;margin-top:4px}
+.site-header .site-nav{display:flex;align-items:center;gap:clamp(10px,1.45vw,20px);flex-wrap:wrap}
+.site-header .site-nav a{color:#173b87!important;font-size:.9rem;font-weight:750;opacity:1;text-decoration:none}
+.site-header .site-nav a[aria-current="page"]:not(.btn){color:#d53336!important}
+.site-header .site-nav a.btn,.site-header .site-nav a.btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:10px 18px;border-radius:100px;background:linear-gradient(100deg,#e6483c,#ff6657)!important;color:#fff!important;font-weight:800;border:0}
+.site-header .site-menu-toggle{display:none;background:#eef3fc;border:1px solid #cbd8ee;color:#173b87;min-width:43px;min-height:43px;border-radius:12px;font-size:22px}
+.footer{background:transparent!important;padding:18px 0 48px!important}
+.footer .footer-card{width:min(1160px,calc(100% - 32px));margin:auto;background:#0d2255;color:#fff;border-radius:30px;padding:28px;box-shadow:0 20px 45px rgba(6,22,64,.15)}
+.footer .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.footer .footer-brand{display:flex;align-items:center;gap:14px}
+.footer .footer-brand img{width:76px;height:auto;background:#fff;border-radius:10px;padding:5px}
+.footer .footer-brand p{margin:0;max-width:42ch;line-height:1.7;color:rgba(255,255,255,.78)}
+.footer .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.footer .footer-links h4{color:#fff;margin:0 0 10px}
+.footer .footer-links p{color:rgba(255,255,255,.78)}
+.footer .footer-links a{display:block;margin:6px 0;color:#fff!important}
+.footer .footer-card .btn-primary{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(100deg,#e6483c,#ff6657);color:#fff;border-radius:999px;padding:13px 20px;font-weight:800;text-decoration:none}
+.footer .footer-bottom{color:rgba(255,255,255,.7)}
+@media(max-width:850px){.site-header .site-menu-toggle{display:block}.site-header .site-nav{display:none;position:absolute;top:100%;left:0;right:0;padding:18px 5%;background:#fff;box-shadow:0 15px 24px rgba(15,45,116,.12);flex-direction:column;align-items:stretch}.site-header .site-nav.open,.site-header .site-nav.is-open,.site-header .site-nav.active{display:flex}.footer .footer-links{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.site-header .site-header-inner{min-height:74px}.site-header .site-brand img{width:50px;height:50px}.site-header .brand-title{font-size:.89rem}.site-header .brand-sub{font-size:.67rem}.footer .footer-top{flex-direction:column}.footer .footer-links{grid-template-columns:1fr}.footer .footer-card{padding:22px}}
