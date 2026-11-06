@@ -87,20 +87,16 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
   }
   async function showAlbum(a, toggle = true) {
     const url=new URL(a.dataset.albumUrl || a.getAttribute('href'),location.href);
-    const parent=a.closest('.hist-cards');
+    const activity=a.closest('.hist-activity');
+    const parent=activity?.querySelector('.hist-activity-content') || a.closest('.hist-cards');
     if(!parent)return;
     let target=parent.querySelector(':scope > .hist-inline-gallery');
-    if(target && target.dataset.albumUrl!==url.href){
-      target.remove();target=null;
-      parent.querySelectorAll('.hist-card').forEach(card=>card.setAttribute('aria-expanded','false'));
-    }
     if(target){
       const wasVisible=toggle && !target.hidden;
       target.hidden=wasVisible;a.setAttribute('aria-expanded',String(!wasVisible));
       return;
     }
     target=document.createElement('div');target.className='hist-inline-gallery';
-    target.dataset.albumUrl=url.href;
     target.setAttribute('role','region');
     const status=document.createElement('p');status.className='hist-inline-status';
     status.textContent='Carregando fotografias…';target.append(status);parent.append(target);
@@ -110,7 +106,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
       if(!photos.length){status.textContent='Nenhuma fotografia encontrada neste álbum.';return;}
       target.replaceChildren();
       const heading=document.createElement('p');heading.className='hist-inline-title';
-      const name=a.querySelector('strong')?.textContent || 'Memória institucional — Destaques';
+      const name=activity?.querySelector('.hist-activity-name')?.textContent || 'Memória institucional — Destaques';
       heading.textContent=name+' • '+photos.length+' fotografia'+(photos.length===1?'':'s');
       target.append(heading);
       const grid=document.createElement('div');grid.className='hist-photo-grid';
@@ -125,13 +121,22 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
       target.append(grid);
     }catch(err){console.error('Falha ao abrir álbum',err);status.textContent='Não foi possível abrir as fotografias. Clique novamente para tentar.';target.remove();a.setAttribute('aria-expanded','false');}
   }
-  // Cartões abrem o álbum na própria Galeria, sem pastas aninhadas.
+  // Cada atividade abre as fotografias com o mesmo grid e visualizador dos Destaques.
+  section.querySelectorAll('.hist-activity').forEach(activity=>{
+    activity.addEventListener('toggle',()=>{
+      const trigger=activity.querySelector('summary[data-album-url]');
+      if(trigger)trigger.setAttribute('aria-expanded',String(activity.open));
+      if(!activity.open)return;
+      const link=activity.querySelector('summary[data-album-url]');
+      if(link)showAlbum(link,false);
+    });
+  });
   section.addEventListener('click',e=>{
     const a=e.target.closest('a[href]');
     if(!a || !section.contains(a))return;
     const url=new URL(a.getAttribute('href'),location.href);
     if(!/^galeria-(?:memoria|20\d\d)\.html$/.test(url.pathname.split('/').pop()))return;
     e.preventDefault();
-    showAlbum(a);
+    showAlbum(a,!a.closest('.hist-activity'));
   });
 })();
