@@ -19,7 +19,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
     #acervo-historico .hist-photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:12px;padding:12px 0}
     #acervo-historico .hist-photo-button{border:2px solid #2855a1;border-bottom:3px solid #ef373a;border-radius:13px;background:white;padding:5px;cursor:zoom-in;overflow:hidden;transition:transform .15s,border-color .15s}
     #acervo-historico .hist-photo-button:hover,#acervo-historico .hist-photo-button:focus-visible{transform:translateY(-2px);border-color:#ef373a}
-    #acervo-historico .hist-photo-button img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:9px;display:block}
+    #acervo-historico .hist-photo-button img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid #2855a1;box-sizing:border-box;border-radius:9px;display:block}
     #acervo-historico .hist-photo-button span{display:block;padding:5px;font-size:.78rem;color:#0f2d74;text-align:center}
     #acervo-historico .hist-thumb{box-sizing:border-box;border:2px solid #2855a1;border-bottom:3px solid #ef373a}
     #acervo-historico .hist-inline-title{font-weight:800;color:#0f2d74;margin:8px 0 2px;font-size:.95rem}
@@ -86,7 +86,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
     return selected ? all.filter(p=>p.atividade===selected) : all;
   }
   async function showAlbum(a, toggle = true) {
-    const url=new URL(a.getAttribute('href'),location.href);
+    const url=new URL(a.dataset.albumUrl || a.getAttribute('href'),location.href);
     const activity=a.closest('.hist-activity');
     const parent=activity?.querySelector('.hist-activity-content') || a.closest('.hist-cards');
     if(!parent)return;
@@ -124,8 +124,10 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
   // Cada atividade abre as fotografias com o mesmo grid e visualizador dos Destaques.
   section.querySelectorAll('.hist-activity').forEach(activity=>{
     activity.addEventListener('toggle',()=>{
+      const trigger=activity.querySelector('summary[data-album-url]');
+      if(trigger)trigger.setAttribute('aria-expanded',String(activity.open));
       if(!activity.open)return;
-      const link=activity.querySelector('a.hist-card');
+      const link=activity.querySelector('summary[data-album-url]');
       if(link)showAlbum(link,false);
     });
   });
