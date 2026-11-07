@@ -145,6 +145,12 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
       if(link?.dataset.videoIds)showVideos(link,false);else if(link)showAlbum(link,false);
     });
   });
+  const hashTarget=location.hash && document.querySelector(location.hash);
+  if(hashTarget?.matches('.hist-activity')){
+    const parentYear=hashTarget.closest('.hist-year');
+    if(parentYear)parentYear.open=true;
+    hashTarget.open=true;
+  }
   section.addEventListener('click',e=>{
     const a=e.target.closest('a[href]');
     if(!a || !section.contains(a))return;
