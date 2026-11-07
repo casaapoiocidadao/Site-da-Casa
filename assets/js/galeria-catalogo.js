@@ -69,6 +69,20 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
     if(e.key==='ArrowLeft')renderLarge(position-1);
     if(e.key==='ArrowRight')renderLarge(position+1);
   });
+  function showVideos(a, toggle = true) {
+    const activity=a.closest('.hist-activity');
+    const parent=activity?.querySelector('.hist-activity-content');
+    if(!parent)return;
+    let target=parent.querySelector(':scope > .hist-inline-gallery');
+    if(target){const wasVisible=toggle && !target.hidden;target.hidden=wasVisible;a.setAttribute('aria-expanded',String(!wasVisible));return;}
+    target=document.createElement('div');target.className='hist-inline-gallery';target.setAttribute('role','region');
+    const names=JSON.parse(a.dataset.videoNames||'[]');
+    const ids=(a.dataset.videoIds||'').split(',').filter(Boolean);
+    const heading=document.createElement('p');heading.className='hist-inline-title';heading.textContent='Depoimentos e Impactos na Comunidade • '+ids.length+' vídeos';target.append(heading);
+    const grid=document.createElement('div');grid.className='hist-photo-grid';grid.style.gridTemplateColumns='repeat(auto-fit,minmax(min(100%,320px),1fr))';
+    ids.forEach((id,i)=>{const card=document.createElement('article');card.style.cssText='overflow:hidden;background:#fff;border:2px solid #2855a1;border-bottom:3px solid #ef373a;border-radius:13px';const frame=document.createElement('iframe');frame.src='https://drive.google.com/file/d/'+encodeURIComponent(id)+'/preview';frame.title='Depoimento de '+(names[i]||'moradora da comunidade');frame.loading='lazy';frame.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';frame.allowFullscreen=true;frame.referrerPolicy='strict-origin-when-cross-origin';frame.style.cssText='display:block;width:100%;aspect-ratio:16/9;border:0;background:#0b1734';const label=document.createElement('p');label.textContent=names[i]||'Depoimento da comunidade';label.style.cssText='margin:0;padding:12px;color:#0f2d74;font-weight:800';card.append(frame,label);grid.append(card);});
+    target.append(grid);parent.append(target);a.setAttribute('aria-expanded','true');
+  }
   async function getPhotos(url) {
     const page = new URL(url,location.href);
     const key = page.pathname;
@@ -128,7 +142,7 @@ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('show'));
       if(trigger)trigger.setAttribute('aria-expanded',String(activity.open));
       if(!activity.open)return;
       const link=activity.querySelector('summary[data-album-url]');
-      if(link)showAlbum(link,false);
+      if(link?.dataset.videoIds)showVideos(link,false);else if(link)showAlbum(link,false);
     });
   });
   section.addEventListener('click',e=>{
