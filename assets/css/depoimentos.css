@@ -1,0 +1,5 @@
+/* Vídeos locais, com controles nativos e proporção vertical preservada. */
+.testimonials-grid,.testimonial-gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:840px;margin-inline:auto}
+.testimonial-video,.testimonial-gallery-video{aspect-ratio:auto!important;background:#0b1734}
+.testimonial-video video,.testimonial-gallery-video video{display:block;width:100%;height:auto;aspect-ratio:9/16;max-height:65svh;object-fit:contain;background:#0b1734}
+@media(max-width:720px){.testimonials-grid,.testimonial-gallery-grid{grid-template-columns:1fr!important;max-width:380px}.testimonial-video video,.testimonial-gallery-video video{max-height:65svh}}
